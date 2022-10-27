@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using KwikKwekSnek.Models;
+using System.IO;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace k.Controllers
 {
@@ -14,9 +17,14 @@ namespace k.Controllers
     {
         private readonly MyContext _context;
 
-        public DrankjesController(MyContext context)
+
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public DrankjesController(MyContext context, IWebHostEnvironment HostEnvironment)
         {
             _context = context;
+
+            this._hostEnvironment = HostEnvironment;
         }
 
         // GET: Drankjes
@@ -59,6 +67,20 @@ namespace k.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (drankje.drankImageUrl != null)
+                {
+                    string wwwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(drankje.drankImageUrl.FileName);
+                    string extension = Path.GetExtension(drankje.drankImageUrl.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymmddssfff") + extension;
+                    string path = Path.Combine(wwwwRootPath + "/image", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await drankje.drankImageUrl.CopyToAsync(fileStream);
+                    }
+                    drankje.afbeelding = fileName;
+                }
+
                 _context.Add(drankje);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("index", "drankjes");
@@ -91,7 +113,7 @@ namespace k.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("personalNumber,naam,phoneNumber,email")] Drankje drankje)
+        public async Task<IActionResult> Edit(int id, [Bind("Naam, Description, afbeelding, prijs, grootte, ijs, plasticrietje,ID")] Drankje drankje)
         {
             if (id != drankje.ID)
             {
