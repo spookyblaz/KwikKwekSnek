@@ -24,7 +24,7 @@ namespace k.Controllers
         {
             _context = context;
 
-            this._hostEnvironment = HostEnvironment;
+            _hostEnvironment = HostEnvironment;
         }
 
         // GET: Drankjes
@@ -63,22 +63,27 @@ namespace k.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Naam, Description, afbeelding, prijs, grootte, ijs, plasticrietje,ID")] Drankje drankje)
+        public async Task<IActionResult> Create(IFormFile foto,[Bind("Naam, Description, afbeelding, drankImageUrl, prijs, grootte, ijs, plasticrietje, ID")] Drankje drankje)
         {
             if (ModelState.IsValid)
             {
-                if (drankje.drankImageUrl != null)
+                
+                //if (drankje.drankImageUrl != null)
+
+                if (foto.FileName != null)
+
                 {
                     string wwwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(drankje.drankImageUrl.FileName);
-                    string extension = Path.GetExtension(drankje.drankImageUrl.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(foto.FileName);
+                    string extension = Path.GetExtension(foto.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmddssfff") + extension;
                     string path = Path.Combine(wwwwRootPath + "/image", fileName);
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
-                        await drankje.drankImageUrl.CopyToAsync(fileStream);
+                        await foto.CopyToAsync(fileStream);
                     }
                     drankje.afbeelding = fileName;
+                    
                 }
 
                 _context.Add(drankje);

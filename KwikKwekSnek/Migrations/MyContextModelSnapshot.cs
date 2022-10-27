@@ -43,8 +43,8 @@ namespace KwikKwekSnek.Migrations
                     b.Property<bool>("plasticrietje")
                         .HasColumnType("bit");
 
-                    b.Property<string>("prijs")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("prijs")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
 

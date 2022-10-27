@@ -10,17 +10,19 @@ namespace KwikKwekSnek.Migrations
                 name: "drankjes",
                 columns: table => new
                 {
-                    Naam = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     afbeelding = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    prijs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    prijs = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     grootte = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ijs = table.Column<bool>(type: "bit", nullable: false),
                     plasticrietje = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_drankjes", x => x.Naam);
+                    table.PrimaryKey("PK_drankjes", x => x.ID);
                 });
         }
 

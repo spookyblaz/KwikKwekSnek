@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Naam" class="control-label"></label>
@@ -23,10 +23,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="drankImageUrl" class="control-label"></label>
-                <input asp-for="drankImageUrl" asp-format="BlockImageName" accept="image/*" />
+               <label asp-for="drankImageUrl" class="control-label"></label>
+                <input asp-for="drankImageUrl" name="foto" accept="image/*" />
                 <span asp-validation-for="drankImageUrl" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="prijs" class="control-label"></label>
                 <input asp-for="prijs" class="form-control" />

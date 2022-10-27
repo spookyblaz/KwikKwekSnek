@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KwikKwekSnek.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221026141356_init")]
+    [Migration("20221027145822_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,10 +22,15 @@ namespace KwikKwekSnek.Migrations
 
             modelBuilder.Entity("KwikKwekSnek.Models.Drankje", b =>
                 {
-                    b.Property<string>("Naam")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Naam")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("afbeelding")
@@ -40,10 +45,10 @@ namespace KwikKwekSnek.Migrations
                     b.Property<bool>("plasticrietje")
                         .HasColumnType("bit");
 
-                    b.Property<string>("prijs")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("prijs")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Naam");
+                    b.HasKey("ID");
 
                     b.ToTable("drankjes");
                 });
