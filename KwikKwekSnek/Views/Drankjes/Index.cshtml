@@ -46,8 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <img src="~/image/modelItem => item.afbeelding" alt="Alternate Text" />
-                @Html.DisplayFor(modelItem => item.afbeelding)
+                <img src="/image/@item.afbeelding" class="img-fluid" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.prijs)
