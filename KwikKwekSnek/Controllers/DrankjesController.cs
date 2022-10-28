@@ -70,7 +70,7 @@ namespace k.Controllers
                 
                 //if (drankje.drankImageUrl != null)
 
-                if (foto.FileName != null)
+                if (foto != null)
 
                 {
                     string wwwwRootPath = _hostEnvironment.WebRootPath;
@@ -118,7 +118,7 @@ namespace k.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Naam, Description, afbeelding, prijs, grootte, ijs, plasticrietje,ID")] Drankje drankje)
+        public async Task<IActionResult> Edit(int id, IFormFile foto, [Bind("Naam, Description, afbeelding, drankImageUrl, prijs, grootte, ijs, plasticrietje,ID")] Drankje drankje)
         {
             if (id != drankje.ID)
             {
@@ -129,6 +129,21 @@ namespace k.Controllers
             {
                 try
                 {
+                    if (foto != null)
+
+                    {
+                        string wwwwRootPath = _hostEnvironment.WebRootPath;
+                        string fileName = Path.GetFileNameWithoutExtension(foto.FileName);
+                        string extension = Path.GetExtension(foto.FileName);
+                        fileName = fileName + DateTime.Now.ToString("yymmddssfff") + extension;
+                        string path = Path.Combine(wwwwRootPath + "/image", fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await foto.CopyToAsync(fileStream);
+                        }
+                        drankje.afbeelding = fileName;
+
+                    }
                     _context.Update(drankje);
                     await _context.SaveChangesAsync();
                 }

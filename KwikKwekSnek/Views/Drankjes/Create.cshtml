@@ -27,7 +27,6 @@
                 <input asp-for="drankImageUrl" name="foto" accept="image/*" />
                 <span asp-validation-for="drankImageUrl" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="prijs" class="control-label"></label>
                 <input asp-for="prijs" class="form-control" />
@@ -35,7 +34,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="grootte" class="control-label"></label>
-                <input asp-for="grootte" class="form-control" />
+                <select asp-for="grootte" class="form-control">
+                    
+                        <option value="s">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    
+                </select>
                 <span asp-validation-for="grootte" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
