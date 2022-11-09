@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using KwikKwekSnek.Models;
 
 namespace KwikKwekSnek.Models
 {
@@ -27,5 +28,6 @@ namespace KwikKwekSnek.Models
             return new MyContext(builder.Options);
         }
         public DbSet<KwikKwekSnek.Models.Drankje> drankjes { get; set; }
+        public DbSet<KwikKwekSnek.Models.Bestelling> Bestelling { get; set; }
     }
 }

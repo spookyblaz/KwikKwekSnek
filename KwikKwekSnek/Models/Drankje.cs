@@ -18,9 +18,10 @@ namespace KwikKwekSnek.Models
         [NotMapped]
         public IFormFile drankImageUrl { get; set; }
         public decimal prijs { get; set; }
-        public string grootte { get; set; } // vervangen door vast aantal opties
-        public Boolean ijs { get; set; }
-        public Boolean plasticrietje { get; set; }
+
+        //  public string grootte { get; set; } // vervangen door vast aantal opties
+        // public Boolean ijs { get; set; }
+        // public Boolean plasticrietje { get; set; }
 
     }
 }

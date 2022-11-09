@@ -1,0 +1,26 @@
+﻿@model IEnumerable<KwikKwekSnek.Models.Drankje>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+
+    <tbody>
+        <tr>
+            <td>
+                <a asp-action="Besteldrankjes" asp-route-bestellingsnummer="@ViewBag.bestellingsnummer">bestel een drankje</a>
+                <input type="hidden" name="bestellingsnummer" value="@ViewBag.ID">
+                @ViewBag.bestellingsnummer
+            </td>
+            <td>
+                <a asp-action="Besteldrankjes" asp-route-id="@ViewBag.bestellingsnummer">bestel een snack todo</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

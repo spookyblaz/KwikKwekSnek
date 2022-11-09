@@ -1,0 +1,53 @@
+﻿@model KwikKwekSnek.Models.Extrasdrankje
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Drankje</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="bestelextrasdrankje" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="grootte" class="control-label"></label>
+                <select asp-for="grootte" class="form-control">
+                    <option value="s"> s </option>
+                    <option value="m"> m </option>
+                    <option value="l"> l</option>
+                    <option value="xl"> xl</option>
+                </select>
+                <span asp-validation-for="grootte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ijs" class="control-label"></label>
+                <input asp-for="ijs" class="form-control" />
+                <span asp-validation-for="ijs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plasticrietje" class="control-label"></label>
+                <input asp-for="plasticrietje" class="form-control" />
+                <span asp-validation-for="plasticrietje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden"  name="iddrankje" value="@ViewBag.ID">
+                <input type="hidden"  name="bestellingsnummer" value="@ViewBag.bestellingsnummer">
+                @ViewBag.bestellingsnummer
+            </div>
+            <div class="form-group">
+                <input type="submit" value="bestel"  class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

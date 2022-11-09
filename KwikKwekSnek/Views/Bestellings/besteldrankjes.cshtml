@@ -24,7 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.prijs)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -43,9 +42,13 @@
                 @Html.DisplayFor(modelItem => item.prijs)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Bestelextrasdrankjes" asp-route-id="@item.ID" asp-route-bestellingsnummer="@ViewBag.bestellingsnummer">voeg toe aan bestelling</a>
+            </td>
+            <td>
+                <input type="hidden" name="bestellingsnummer" value="@ViewBag.bestellingsnummer">
+                @ViewBag.bestellingsnummer
+                @ViewBag.id
+
             </td>
         </tr>
 }
